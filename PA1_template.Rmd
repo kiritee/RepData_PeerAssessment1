@@ -35,12 +35,12 @@ hist(totStepsByDay)
 ```
 
 
-```{r calcmean1,  echo=TRUE, results="hide"}
+```{r calcmean1,  echo=TRUE}
 mean1<-mean(totStepsByDay,na.rm=T)
 median1<-median(totStepsByDay,na.rm=T)
+print(paste("The mean total number of steps taken per day is ",mean1))
+print(paste("The median total number of steps taken per day is ",median1))
 ```
-The mean total number of steps taken per day is `r mean1`
-The median total number of steps taken per day is `r median1`
 
 
 ## What is the average daily activity pattern?
@@ -49,23 +49,23 @@ The median total number of steps taken per day is `r median1`
 avgStepsByInterval<-tapply(activity$steps,activity$interval,mean,na.rm=T)
 plot(names(avgStepsByInterval),avgStepsByInterval,type="l")
 maxInterval<-names(avgStepsByInterval[avgStepsByInterval==max(avgStepsByInterval)])
+print(paste("the max no of steps are contained in interval ",maxInterval))
 ```
 
-the max no of steps are contained in interval `r maxInterval`
 
 
 ## Imputing missing values
 
 Missing values are imputed in following code taking mean daily activity pattern for the interval
-```{r impute, echo=TRUE, results="hide"}
+```{r impute, echo=TRUE}
 naRows<-is.na(activity$steps)
 totNaRows<-sum(naRows)
+print(paste("Total number of missing values is ",totNaRows))
 naIntervals<-activity$interval[naRows]
 activity2<-activity
 activity2$steps[naRows]<-avgStepsByInterval[as.character(naIntervals)]
 ```
 
-Total number of missing values is `r totNaRows`
 
 Post imputation tot steps looks like below:
 the total number of steps follows the following distribution
@@ -77,12 +77,14 @@ hist(totStepsByDay2)
 ```
 
 
-```{r calcmean2,  echo=TRUE, results="hide"}
+```{r calcmean2,  echo=TRUE}
 mean2<-mean(totStepsByDay2,na.rm=T)
 median2<-median(totStepsByDay2,na.rm=T)
+
+print(paste("The mean total number of steps taken per day is ",mean2))
+print(paste("The median total number of steps taken per day is ",median2))
 ```
-The mean total number of steps taken per day is `r mean2`
-The median total number of steps taken per day is `r median2`
+
 
 mean stays the same but median is different
 

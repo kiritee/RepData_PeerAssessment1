@@ -39,9 +39,20 @@ hist(totStepsByDay)
 ```r
 mean1<-mean(totStepsByDay,na.rm=T)
 median1<-median(totStepsByDay,na.rm=T)
+print(paste("The mean total number of steps taken per day is ",mean1))
 ```
-The mean total number of steps taken per day is 1.0766189\times 10^{4}
-The median total number of steps taken per day is 1.0765\times 10^{4}
+
+```
+## [1] "The mean total number of steps taken per day is  10766.1886792453"
+```
+
+```r
+print(paste("The median total number of steps taken per day is ",median1))
+```
+
+```
+## [1] "The median total number of steps taken per day is  10765"
+```
 
 
 ## What is the average daily activity pattern?
@@ -56,9 +67,13 @@ plot(names(avgStepsByInterval),avgStepsByInterval,type="l")
 
 ```r
 maxInterval<-names(avgStepsByInterval[avgStepsByInterval==max(avgStepsByInterval)])
+print(paste("the max no of steps are contained in interval ",maxInterval))
 ```
 
-the max no of steps are contained in interval 835
+```
+## [1] "the max no of steps are contained in interval  835"
+```
+
 
 
 ## Imputing missing values
@@ -68,12 +83,19 @@ Missing values are imputed in following code taking mean daily activity pattern 
 ```r
 naRows<-is.na(activity$steps)
 totNaRows<-sum(naRows)
+print(paste("Total number of missing values is ",totNaRows))
+```
+
+```
+## [1] "Total number of missing values is  2304"
+```
+
+```r
 naIntervals<-activity$interval[naRows]
 activity2<-activity
 activity2$steps[naRows]<-avgStepsByInterval[as.character(naIntervals)]
 ```
 
-Total number of missing values is 2304
 
 Post imputation tot steps looks like below:
 the total number of steps follows the following distribution
@@ -93,9 +115,22 @@ hist(totStepsByDay2)
 ```r
 mean2<-mean(totStepsByDay2,na.rm=T)
 median2<-median(totStepsByDay2,na.rm=T)
+
+print(paste("The mean total number of steps taken per day is ",mean2))
 ```
-The mean total number of steps taken per day is 1.0766189\times 10^{4}
-The median total number of steps taken per day is 1.0766189\times 10^{4}
+
+```
+## [1] "The mean total number of steps taken per day is  10766.1886792453"
+```
+
+```r
+print(paste("The median total number of steps taken per day is ",median2))
+```
+
+```
+## [1] "The median total number of steps taken per day is  10766.1886792453"
+```
+
 
 mean stays the same but median is different
 
