@@ -137,7 +137,8 @@ mean stays the same but median is different
 ## Are there differences in activity patterns between weekdays and weekends?
 
 code for this is:
-```r{}
+
+```r
 findWeekend<-function(x){
     if (weekdays(x) == "Saturday" || weekdays(x)=="Sunday") "weekend" 
     else "weekday"
@@ -145,5 +146,7 @@ findWeekend<-function(x){
 wd<-factor(sapply(activity2$date,findWeekend))
 activity2<-cbind(activity2,wd)
 library(lattice)
-xyplot(steps ~ interval | wd2, data = activity3, layout = c(1,2),type="l")
+xyplot(steps ~ interval | wd, data = activity2, layout = c(1,2),type="l")
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-1-1.png) 
