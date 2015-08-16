@@ -1,9 +1,4 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 
@@ -11,7 +6,8 @@ output:
 
 The below code is used to load the data
 
-```{r load, echo=TRUE, results='hide'}
+
+```r
 download.file(url="https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip", destfile="assign1.zip", mode="wb")
 unzip("assign1.zip")
 list.files()
@@ -26,38 +22,50 @@ activity<-read.csv("activity.csv",na.strings = "NA", colClasses = c("numeric","D
 ## What is mean total number of steps taken per day?
 
 the total number of steps follows the following distribution
-```{r calctotsteps1, echo=TRUE, results="hide"}
+
+```r
 totStepsByDay<-tapply(activity$steps,activity$date,sum)
 ```
 
-```{r plothist1, echo=TRUE, results="asis"}
+
+```r
 hist(totStepsByDay)
 ```
 
+![](PA1_template_files/figure-html/plothist1-1.png) 
 
-```{r calcmean1,  echo=TRUE, results="hide"}
+
+
+```r
 mean1<-mean(totStepsByDay,na.rm=T)
 median1<-median(totStepsByDay,na.rm=T)
 ```
-The mean total number of steps taken per day is `r mean1`
-The median total number of steps taken per day is `r median1`
+The mean total number of steps taken per day is 1.0766189\times 10^{4}
+The median total number of steps taken per day is 1.0765\times 10^{4}
 
 
 ## What is the average daily activity pattern?
 
-```{r activity1}
+
+```r
 avgStepsByInterval<-tapply(activity$steps,activity$interval,mean,na.rm=T)
 plot(names(avgStepsByInterval),avgStepsByInterval,type="l")
+```
+
+![](PA1_template_files/figure-html/activity1-1.png) 
+
+```r
 maxInterval<-names(avgStepsByInterval[avgStepsByInterval==max(avgStepsByInterval)])
 ```
 
-the max no of steps are contained in interval `r maxInterval`
+the max no of steps are contained in interval 835
 
 
 ## Imputing missing values
 
 Missing values are imputed in following code taking mean daily activity pattern for the interval
-```{r impute, echo=TRUE, results="hide"}
+
+```r
 naRows<-is.na(activity$steps)
 totNaRows<-sum(naRows)
 naIntervals<-activity$interval[naRows]
@@ -65,24 +73,29 @@ activity2<-activity
 activity2$steps[naRows]<-avgStepsByInterval[as.character(naIntervals)]
 ```
 
-Total number of missing values is `r totNaRows`
+Total number of missing values is 2304
 
 Post imputation tot steps looks like below:
 the total number of steps follows the following distribution
-```{r calctotsteps2, echo=TRUE, results="hide"}
+
+```r
 totStepsByDay2<-tapply(activity2$steps,activity$date,sum)
 ```
-```{r plothist2, echo=TRUE, results="asis"}
+
+```r
 hist(totStepsByDay2)
 ```
 
+![](PA1_template_files/figure-html/plothist2-1.png) 
 
-```{r calcmean2,  echo=TRUE, results="hide"}
+
+
+```r
 mean2<-mean(totStepsByDay2,na.rm=T)
 median2<-median(totStepsByDay2,na.rm=T)
 ```
-The mean total number of steps taken per day is `r mean2`
-The median total number of steps taken per day is `r median2`
+The mean total number of steps taken per day is 1.0766189\times 10^{4}
+The median total number of steps taken per day is 1.0766189\times 10^{4}
 
 mean stays the same but median is different
 
