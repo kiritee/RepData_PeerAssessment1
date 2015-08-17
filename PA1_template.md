@@ -29,7 +29,7 @@ totStepsByDay<-tapply(activity$steps,activity$date,sum)
 
 
 ```r
-hist(totStepsByDay)
+hist(totStepsByDay, xlab="Total Number of Steps in a Day", main="Frequency Distribution of Total Number of Steps in a Day")
 ```
 
 ![](PA1_template_files/figure-html/plothist1-1.png) 
@@ -60,7 +60,7 @@ print(paste("The median total number of steps taken per day is ",median1))
 
 ```r
 avgStepsByInterval<-tapply(activity$steps,activity$interval,mean,na.rm=T)
-plot(names(avgStepsByInterval),avgStepsByInterval,type="l")
+plot(names(avgStepsByInterval),avgStepsByInterval,type="l", main="Average number of Steps in an Interval", xlab="Interval during the day", ylab="Number of Steps")
 ```
 
 ![](PA1_template_files/figure-html/activity1-1.png) 
@@ -105,7 +105,7 @@ totStepsByDay2<-tapply(activity2$steps,activity$date,sum)
 ```
 
 ```r
-hist(totStepsByDay2)
+hist(totStepsByDay2, xlab="Total Number of Steps in a Day", main="Frequency Distribution of Total Number of Steps in a Day")
 ```
 
 ![](PA1_template_files/figure-html/plothist2-1.png) 
@@ -147,7 +147,7 @@ wd<-factor(sapply(activity2$date,findWeekend))
 activity2<-cbind(activity2,wd)
 avgSteps<-aggregate(activity2[,1],as.list(activity2[,3:4]),FUN=mean)
 library(lattice)
-xyplot(avgSteps$x ~ avgSteps$interval | wd, data = avgSteps, layout = c(1,2),type="l")
+xyplot(avgSteps$x ~ avgSteps$interval | wd, data = avgSteps, layout = c(1,2),type="l",xlab="Interval", ylab="Average Number of Steps", main="Activity Pattern on Weekends vs Weekdays")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-1-1.png) 
