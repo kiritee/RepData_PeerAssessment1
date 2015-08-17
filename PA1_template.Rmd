@@ -98,6 +98,7 @@ findWeekend<-function(x){
 }
 wd<-factor(sapply(activity2$date,findWeekend))
 activity2<-cbind(activity2,wd)
+avgSteps<-aggregate(activity2[,1],as.list(activity2[,3:4]),FUN=mean)
 library(lattice)
-xyplot(steps ~ interval | wd, data = activity2, layout = c(1,2),type="l")
+xyplot(avgSteps$x ~ avgSteps$interval | wd, data = avgSteps, layout = c(1,2),type="l")
 ```
